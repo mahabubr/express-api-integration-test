@@ -17,7 +17,7 @@ describe("SEARCH API TEST WITHOUT DATABASE", () => {
 
     const result = await request(app).get("/api/data/async");
 
-    expect(result.statusCode).toEqual(200)
+    expect(result.statusCode).toEqual(200);
     expect(result.body).toHaveProperty("data", "Delayed Data");
   });
 });

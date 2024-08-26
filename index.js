@@ -1,6 +1,8 @@
 import express from "express";
 import { crudRouter } from "./router/crudRouter.js";
 import { searchRouter } from "./router/searchRouter.js";
+import { productRouter } from "./router/productRouter.js";
+
 const app = express();
 const port = 4242;
 
@@ -13,6 +15,7 @@ app.use((req, res, next) => {
 
 app.use("/api", crudRouter);
 app.use("/api", searchRouter);
+app.use("/api", productRouter );
 
 app.get("/", (req, res) => res.send("Hello World!"));
 

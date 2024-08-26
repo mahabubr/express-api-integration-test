@@ -44,7 +44,7 @@ describe("CRUD API ERROR HANDLING TEST WITHOUT DATABASE", () => {
   it("UPDATE /api/update/:id should return a 400 error if name is not provided", async () => {
     const result = await request(app).put("/api/update/1").send({});
 
-    expect(result.statusCode).toEqual(400)
+    expect(result.statusCode).toEqual(400);
     expect(result.body).toHaveProperty("error", "Name is required");
   });
 });
