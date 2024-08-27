@@ -3,7 +3,7 @@ import app from "..";
 
 import "../testSetup";
 
-describe("PRODUCT CRUD API TEST WITH DATABASE", () => {
+describe("BOOKS CRUD API TEST WITH DATABASE", () => {
   let bookId;
 
   it("POST /api/books/ should create and new book and check its properties", async () => {
@@ -40,6 +40,7 @@ describe("PRODUCT CRUD API TEST WITH DATABASE", () => {
 
   it("GET /books/:id should return a single book", async () => {
     const result = await request(app).get(`/api/books/${bookId}`);
+
     expect(result.status).toBe(200);
     expect(result.body).toHaveProperty("_id");
     expect(result.body.title).toBe("The Great Gatsby");
@@ -70,5 +71,28 @@ describe("PRODUCT CRUD API TEST WITH DATABASE", () => {
     expect(result.body.author).toBe("F. Scott Fitzgerald");
     expect(result.body.publishedYear).toBe(1925);
     expect(result.body.genre).toBe("Novel");
+  });
+});
+
+describe("BOOKS CRUD API ERROR TEST WITH DATABASE", () => {
+  it("POST /api/books return 400 when create a book with invalid data", async () => {
+    const payload = {
+      title: "",
+      author: "F. Scott Fitzgerald",
+      publishedYear: 1925,
+      genre: "Novel",
+    };
+
+    const result = await request(app).post("/api/books").send(payload);
+
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toHaveProperty("errors");
+  });
+
+  it("GET /apu/books/:id return 400 when retrieving a book with and invalid ID", async () => {
+    const result = await request(app).get(`/api/books/1`);
+
+    expect(result.status).toBe(400);
+    expect(result.body).toHaveProperty("message", "Invalid ID");
   });
 });
