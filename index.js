@@ -2,6 +2,8 @@ import express from "express";
 import { crudRouter } from "./router/crudRouter.js";
 import { searchRouter } from "./router/searchRouter.js";
 import { productRouter } from "./router/productRouter.js";
+import { booksRouter } from "./router/booksRouter.js";
+import connectToDatabase from "./db.js";
 
 const app = express();
 const port = 4242;
@@ -13,13 +15,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// connectToDatabase("mongodb://localhost:27017/books");
+
 app.use("/api", crudRouter);
 app.use("/api", searchRouter);
-app.use("/api", productRouter );
+app.use("/api", productRouter);
+app.use("/api", booksRouter);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 app.use((req, res) => {
   res.status(404).json({ error: "Not Found" });
