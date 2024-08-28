@@ -4,6 +4,7 @@ import { searchRouter } from "./router/searchRouter.js";
 import { productRouter } from "./router/productRouter.js";
 import { booksRouter } from "./router/booksRouter.js";
 import connectToDatabase from "./db.js";
+import authRouter from "./router/authRouter.js";
 
 const app = express();
 const port = 4242;
@@ -21,6 +22,7 @@ app.use("/api", crudRouter);
 app.use("/api", searchRouter);
 app.use("/api", productRouter);
 app.use("/api", booksRouter);
+app.use("/api", authRouter);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
