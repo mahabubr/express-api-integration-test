@@ -17,7 +17,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// connectToDatabase("mongodb://localhost:27017/books");
+process.env.NODE_ENV !== "test" &&
+  connectToDatabase("mongodb://localhost:27017/books");
 
 app.use("/api", crudRouter);
 app.use("/api", searchRouter);
